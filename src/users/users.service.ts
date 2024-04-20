@@ -1,21 +1,22 @@
 import { Injectable } from "@nestjs/common";
-;
+import { InjectModel } from "@nestjs/mongoose";
+import { User, UserSchema } from "../models/user.schema";
+
 
 @Injectable()
 export class UserServices {
+    constructor(@InjectModel('User') private readonly UserSchema) { }
 
-    async findById(userdata:any) {
+    async insertFirst(userdata: User): Promise<User | null> {
+
+        const newUser = new this.UserSchema(userdata);
         try {
-            const response = await fetch('http://localhost:8000/users');
-            const responsedata = await response.json();
-
-            const user = [...responsedata,userdata];
-
-
-            return user;
+            const saveduser = await newUser.save();
+            return saveduser;
         } catch (error) {
-
-            throw error;
+            console.error('Error saving', error.message);
+            return null;
         }
     }
+
 }

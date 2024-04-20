@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
-import { modelModule } from './models/models.module';
+
 @Module({
-  imports: [UsersModule, modelModule]
+  imports: [UsersModule], // Import UsersModule to use UserServices and controllers
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,13 +3,11 @@ import { Request, Response } from "express";
 import { UserServices } from "./users.service";
 type userdata = {
 
-  _id:string,
-  username:string,
-  password:string,
-  email:string,
-  bio:string,
-  profilepicture: string,
-  about:string,
+
+  username: string,
+  password: string,
+  email: string,
+
 }
 @Controller('users')
 
@@ -21,15 +19,23 @@ export class UsersController {
 
 
   @Post()
-  async findById(@Req() @Body() userdata:userdata, req: Request, @Res() res: Response) {
+  async insertFirst(@Req() req: Request, @Res() res: Response) {
+    const userdata = req.body;
     try {
-
-      const users = await this.userService.findById(userdata);
-
-
-      return res.status(HttpStatus.OK).json(users);
-    } catch {
-      res.status(HttpStatus.BAD_GATEWAY).send();
+      const newUser = await this.userService.insertFirst(userdata);
+      if (newUser) {
+        return res.status(HttpStatus.CREATED).json(newUser);
+      }
+      else {
+        return res.status(HttpStatus.BAD_REQUEST).send('Registration failed')
+      }
+    } catch (error) {
+      console.error('Error from server', error)
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('Interal Server Error');
     }
+
   }
+
+
+
 }
