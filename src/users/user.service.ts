@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-
 import { User } from './user.interface';
 import { Model } from 'mongoose';
 import * as argon2 from 'argon2';
 import axios from 'axios';
 import { ConfigService } from '@nestjs/config';
+
 @Injectable()
 export class UserService {
 
