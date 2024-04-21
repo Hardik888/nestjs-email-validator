@@ -1,18 +1,7 @@
 import { Controller, Get, Req, Res, HttpStatus, Logger, Post, LogLevel, Body } from "@nestjs/common";
 import { Request, Response } from "express";
 import { UserServices } from "./users.service";
-type userdata = {
-
-
-  username: string,
-  password: string,
-  email: string,
-
-}
 @Controller('users')
-
-
-
 export class UsersController {
 
   constructor(private readonly userService: UserServices) { }
