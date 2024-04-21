@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './users/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
+
 @Module({
-  imports: [UsersModule,
+  imports: [DatabaseModule, UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
     })
-  ], // Import UsersModule to use UserServices and controllers
+  ], 
 })
 export class AppModule { }
